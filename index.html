@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bestie Space 🎀✨</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans (Modern Clean) & Dancing Script (Elegant Cursive) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+            cursive: ['"Dancing Script"', 'cursive'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            coquette: {
+              50: '#fff0f3',
+              100: '#ffe5ec',
+              200: '#ffccd5',
+              300: '#ffb3c6',
+              400: '#ff85a1',
+              500: '#ff4d6d',
+              600: '#c9184a',
+              dark: '#4a3237'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #fff5f6;
+      background-image: radial-gradient(#ffe5ec 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      color: #4a3237;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23ff85a1' stroke='%23ffffff' stroke-width='1.5'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>") 12 12, auto;
+    }
+
+    /* Glassmorphism Premium */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(255, 204, 213, 0.6);
+      box-shadow: 0 8px 32px 0 rgba(255, 133, 161, 0.12);
+    }
+
+    .glass-widget {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 204, 213, 0.4);
+      box-shadow: 0 10px 24px -10px rgba(255, 133, 161, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .glass-widget:hover {
+      transform: scale(1.03) translateY(-2px);
+      border-color: #ff85a1;
+      box-shadow: 0 15px 30px -10px rgba(255, 133, 161, 0.3);
+    }
+
+    /* Animasi Mengambang */
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatGentle 4s ease-in-out infinite;
+    }
+
+    @keyframes spinSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+      animation: spinSlow 15s linear infinite;
+    }
+
+    /* Kustom Scrollbar untuk Modal Box */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #fff0f3;
+      border-radius: 10px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #ffccd5;
+      border-radius: 10px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #ff85a1;
+    }
+
+    /* Sparkle Generator Effect */
+    .sparkle-particle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1.5rem;
+      animation: sparkleAnim 1.2s ease-in-out forwards;
+      z-index: 100;
+    }
+    @keyframes sparkleAnim {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      50% { transform: scale(1.2) rotate(90deg); opacity: 1; }
+      100% { transform: scale(0) translateY(-30px) rotate(180deg); opacity: 0; }
+    }
+
+    /* Falling Flowers background */
+    .falling-flora {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10;
+      animation: fallAnim linear forwards;
+    }
+    @keyframes fallAnim {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Polaroid Slide Animation */
+    .polaroid-card {
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+    }
+
+    /* Waveform Animation for Voice Note */
+    .wave-bar {
+      transition: height 0.15s ease-in-out;
+    }
+  </style>
+</head>
+<body class="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden">
+
+  <!-- ==========================================
+       1. GEN-Z LOCK SCREEN (SPLASH SCREEN)
+       ========================================== -->
+  <div id="lock-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-6 bg-gradient-to-tr from-[#fff0f3] via-[#ffe5ec] to-[#fff5f6] transition-all duration-1000 ease-in-out">
+    
+    <!-- Top Aesthetic Time & Widget -->
+    <div class="w-full max-w-md flex flex-col items-center mt-10 space-y-2">
+      <span class="text-coquette-500 text-xs font-bold uppercase tracking-widest bg-white/60 px-3 py-1.5 rounded-full border border-coquette-200">✨ HELLOO ✨</span>
+      <h1 class="text-7xl font-light tracking-tight text-coquette-dark/80 font-jakarta">00:00</h1>
+      <p id="lock-date" class="text-sm font-semibold text-coquette-dark/60">Sabtu, 13 Juni 2026</p>
+    </div>
+
+    <!-- Center Phone-style Interactive Notification -->
+    <div class="w-full max-w-sm glass-panel rounded-3xl p-6 border border-coquette-200 shadow-2xl space-y-5 animate-float relative overflow-hidden">
+      <div class="absolute top-0 right-0 text-5xl opacity-10 select-none">🎀</div>
+      
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-coquette-400 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
+          👩🏻
+        </div>
+        <div class="flex-grow text-left">
+          <p class="text-xs font-extrabold text-coquette-600">Neng Putri 💌</p>
+          <p class="text-xs text-coquette-dark/60 font-medium">Baru saja mengirimi kamu pesan...</p>
+        </div>
+        <span class="text-[10px] text-coquette-dark/40 font-bold">Sekarang</span>
+      </div>
+
+      <div class="bg-white/60 p-4 rounded-2xl border border-coquette-100 space-y-2">
+        <p class="text-xs text-coquette-dark leading-relaxed font-semibold text-center">
+          Halo acaa, selamat bertambah usia, wishing u all the happiness in life n the best of everything... mohon maap telat memberikan ucapan selamat, biasa orang sibuk wkwk, engga si emang belum beres aja ini web nya makanya telat hehe, i've prepared a little message for u. to read it, simply click the button below. semoga suka ya sayang🤍
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Swipe / Tap to Unlock Button -->
+    <div class="w-full max-w-xs mb-10 text-center space-y-4">
+      <button onclick="unlockDashboard()" class="w-full py-4 bg-gradient-to-r from-coquette-400 to-coquette-500 text-white font-bold rounded-2xl shadow-lg shadow-coquette-300 hover:scale-[1.03] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+        Buka Pesan 🎀 <i data-lucide="chevron-right" class="w-5 h-5"></i>
+      </button>
+      <p class="text-[11px] text-coquette-dark/40 font-bold uppercase tracking-wider">Tap untuk melihat pesan</p>
+    </div>
+  </div>
+
+  <audio id="global-music" src="nadin.mp3" loop></audio>
+<audio id="voice-memo-audio" src="hehe.mp3"></audio>
+<audio id="chat-voice-audio" src="audio/chat-voice.mp3"></audio>
+
+  <!-- ==========================================
+       2. COQUETTE OS INTERACTIVE DASHBOARD
+       ========================================== -->
+  <main id="main-dashboard" class="opacity-0 transition-opacity duration-1000 w-full max-w-5xl h-[92vh] max-h-[850px] flex flex-col justify-between hidden z-20">
+    
+    <!-- Top Bar Dashboard -->
+    <div class="w-full flex justify-between items-center px-4 py-2 bg-white/40 rounded-2xl border border-white/20 backdrop-blur-sm shadow-sm">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 bg-coquette-400 rounded-full animate-ping"></span>
+        <span class="text-xs font-extrabold text-coquette-dark/80 uppercase tracking-widest font-jakarta">Selamat Bertambah Usia Sayangku 🎀</span>
+      </div>
+      
+      <!-- Music Mini Player Widget -->
+      <div class="flex items-center gap-3">
+        <div id="cassette-spin-art" class="w-8 h-8 rounded-full bg-coquette-200 flex items-center justify-center text-coquette-600 text-xs shadow-inner">
+          <i data-lucide="music" class="w-4 h-4"></i>
+        </div>
+        <button onclick="toggleMusicGlobal()" class="p-2 bg-coquette-100 rounded-full border border-coquette-200 hover:scale-105 text-coquette-600 active:scale-95 transition-all">
+          <i id="dashboard-music-icon" data-lucide="pause" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN GRID INTERACTIVE WIDGETS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4 flex-grow overflow-y-auto max-h-[72%] custom-scroll p-1">
+      
+      <!-- WIDGET 1: THE BIG SCRAPBOOK ENVELOPE (SURAT CINTA) -->
+      <div onclick="openModal('envelope-modal')" class="glass-widget col-span-2 row-span-2 p-6 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden group min-h-[220px]">
+        <div class="absolute -right-6 -bottom-6 text-9xl opacity-10 select-none group-hover:scale-110 transition-transform">💌</div>
+        <div class="flex justify-between items-start">
+          <div class="bg-coquette-100 text-coquette-600 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest">Surat</div>
+          <span class="text-2xl animate-pulse">🎁</span>
+        </div>
+        <div class="space-y-2 mt-4 z-10">
+          <h2 class="font-serif text-3xl font-semibold leading-tight text-coquette-dark">Untuk Acaaa...</h2>
+          <p class="text-xs text-coquette-dark/60 leading-relaxed line-clamp-3">
+            Selamat hari lahir, gadis manis berhati mulia! Melalui halaman digital yang kubuat sendiri ini, aku ingin membisikkan jutaan kata terima kasih...
+          </p>
+        </div>
+        <div class="flex items-center gap-1.5 text-coquette-500 font-bold text-xs mt-4 hover:underline">
+          Buka & Baca Surat 💌 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </div>
+      </div>
+
+      <!-- WIDGET 2: SPARKLE BOUQUET (BUKET INTERAKTIF) -->
+      <div id="bouquet-widget" class="glass-widget p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[220px]" onmousemove="generateBouquetSparkles(event)" onclick="openModal('flower-modal')">
+        <div class="flex justify-between items-center">
+          <span class="text-coquette-500 text-[10px] font-extrabold uppercase tracking-widest">Buket Bunga</span>
+          <span class="text-xs text-coquette-400 font-bold">Lihat✨</span>
+        </div>
+        
+        <!-- SVG Miniature Bouquet -->
+        <div class="w-full h-24 flex justify-center items-center my-2 select-none pointer-events-none">
+          <svg viewBox="0 0 100 110" class="w-16 h-16 animate-float">
+            <!-- Leaf Backing -->
+            <path d="M30,40 Q10,20 20,5 Q40,15 30,40" fill="#a7c957"/>
+            <path d="M70,40 Q90,20 80,5 Q60,15 70,40" fill="#a7c957"/>
+            <!-- Stems -->
+            <line x1="35" y1="80" x2="50" y2="50" stroke="#386641" stroke-width="2.5"/>
+            <line x1="50" y1="80" x2="50" y2="45" stroke="#386641" stroke-width="2.5"/>
+            <line x1="65" y1="80" x2="50" y2="50" stroke="#386641" stroke-width="2.5"/>
+            <!-- Flowers -->
+            <circle cx="25" cy="35" r="10" fill="#ff758f"/>
+            <circle cx="50" cy="25" r="14" fill="#ffccd5"/>
+            <circle cx="75" cy="38" r="10" fill="#ff85a1"/>
+            <path d="M15,50 L50,85 L85,50 Z" fill="#ffe5ec" opacity="0.8"/>
+            <circle cx="50" cy="80" r="4" fill="#ff4d6d"/>
+          </svg>
+        </div>
+
+        <p class="text-[10px] text-coquette-dark/50 leading-tight italic text-center">"Bunga digital istimewa untukmu, agar apa? agar harimu selalu berbunga bunga wkwkw."</p>
+      </div>
+
+      <!-- WIDGET 3: TIUP LILIN KUE (THE CAKE APPS) -->
+      <div onclick="openModal('cake-modal')" class="glass-widget p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[220px] group">
+        <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 select-none group-hover:scale-105 transition-transform">🎂</div>
+        <div class="flex justify-between items-center">
+          <span class="text-coquette-500 text-[10px] font-extrabold uppercase tracking-widest">Tiup Lilin</span>
+          <span class="text-xs">🕯️</span>
+        </div>
+        
+        <!-- Interactive Cake Miniature Icon -->
+        <div class="flex flex-col items-center justify-center my-3 space-y-1">
+          <!-- Flame Indicator -->
+          <span id="widget-candle-flame" class="w-2.5 h-4 bg-orange-400 rounded-full animate-bounce shadow-[0_0_8px_rgba(251,146,60,0.8)]"></span>
+          <!-- Candle -->
+          <div class="w-2 h-4 bg-coquette-300 rounded-sm"></div>
+          <!-- Tiny Cake Layer -->
+          <div class="w-14 h-5 bg-coquette-100 border-b-2 border-white/40 rounded-sm flex justify-center items-center">✨</div>
+          <div class="w-18 h-6 bg-coquette-200 rounded-sm"></div>
+        </div>
+
+        <div class="text-center text-[10px] font-bold text-coquette-dark/70">
+          Make a wish & tiup lilinnya!
+        </div>
+      </div>
+
+      <!-- WIDGET 3.5: KISAH KASIH CHAT SIMULATION (NEW GEN-Z CHAT INTERFACE) -->
+      <div onclick="openModal('chat-modal')" class="glass-widget col-span-2 p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[200px] bg-gradient-to-br from-white to-[#fff0f3]">
+        <div class="absolute -right-6 -bottom-6 text-8xl opacity-10 select-none">💬</div>
+        <div class="flex justify-between items-center">
+          <span class="text-coquette-600 text-[10px] font-extrabold uppercase tracking-widest">Masa ke masa 💬</span>
+          <span class="text-[9px] bg-coquette-400 text-white px-2 py-0.5 rounded-full font-extrabold animate-pulse">1 Baru</span>
+        </div>
+
+        <!-- Simulated WA Message Preview -->
+        <div class="flex items-center gap-3 bg-white/90 p-3 rounded-2xl border border-coquette-100 my-2 shadow-sm">
+          <div class="w-9 h-9 bg-coquette-200 rounded-full flex items-center justify-center text-lg">👩🏼</div>
+          <div class="flex-grow text-left">
+            <p class="text-[11px] font-extrabold text-coquette-dark">Acaaa 🌸</p>
+            <p class="text-[10px] text-coquette-dark/60 truncate">"Main masak masakan yu..."</p>
+          </div>
+          <span class="text-[9px] text-coquette-dark/40 font-bold">00:00</span>
+        </div>
+
+        <div class="text-[10px] font-bold text-coquette-dark/70 text-center uppercase tracking-wider">
+          Dari masa ke masa 📱
+        </div>
+      </div>
+
+      <!-- WIDGET 4: POLAROID STACK (SCRAPBOOK GALLERY) -->
+      <div onclick="openModal('gallery-modal')" class="glass-widget col-span-2 p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[200px] group">
+        <div class="flex justify-between items-center">
+          <span class="text-coquette-500 text-[10px] font-extrabold uppercase tracking-widest">Scrapbook Momen</span>
+          <span class="text-xs">📸</span>
+        </div>
+        
+        <!-- Stack of mini polaroids -->
+        <div class="relative w-full h-24 flex justify-center items-center my-2">
+          <div class="absolute bg-white p-1.5 pb-4 shadow-md border rounded transform -rotate-12 w-16 h-20">
+            <div class="bg-gray-100 w-full h-12 object-cover"></div>
+          </div>
+          <div class="absolute bg-white p-1.5 pb-4 shadow-md border rounded transform rotate-6 w-16 h-20 translate-x-3">
+            <div class="bg-coquette-100 w-full h-12 object-cover"></div>
+          </div>
+          <div class="absolute bg-white p-1.5 pb-4 shadow-lg border rounded transform -rotate-2 w-16 h-20 -translate-x-3 group-hover:scale-105 transition-transform">
+            <img src="foto/foto 11.jpg" class="w-full h-12 object-cover" alt="Thumb" onerror="this.src='https://placehold.co/100x80/fff0f3/ff4d6d?text=Bestie'">
+          </div>
+        </div>
+
+        <div class="text-xs text-coquette-dark/70 text-center font-bold">
+          Buka album foto
+        </div>
+      </div>
+
+      <!-- WIDGET 5: SHARING EMOTION BOX ( scratch / tap to reveal ) -->
+      <div onclick="openModal('reasons-modal')" class="glass-widget col-span-2 p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[200px] group bg-gradient-to-br from-white/80 to-[#ffe5ec]/60">
+        <div class="flex justify-between items-center">
+          <span class="text-coquette-500 text-[10px] font-extrabold uppercase tracking-widest">Kenapa kamu spesial?</span>
+          <span class="text-xs">💝</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 my-3 justify-items-center">
+          <div class="w-10 h-10 bg-white hover:bg-coquette-100 rounded-xl flex items-center justify-center text-md shadow-sm transition-colors border border-coquette-200">🌸</div>
+          <div class="w-10 h-10 bg-white hover:bg-coquette-100 rounded-xl flex items-center justify-center text-md shadow-sm transition-colors border border-coquette-200">🎙️</div>
+          <div class="w-10 h-10 bg-white hover:bg-coquette-100 rounded-xl flex items-center justify-center text-md shadow-sm transition-colors border border-coquette-200">🧁</div>
+          <div class="w-10 h-10 bg-white hover:bg-coquette-100 rounded-xl flex items-center justify-center text-md shadow-sm transition-colors border border-coquette-200">👭</div>
+          <div class="w-10 h-10 bg-white hover:bg-coquette-100 rounded-xl flex items-center justify-center text-md shadow-sm transition-colors border border-coquette-200">⭐</div>
+          <div class="w-10 h-10 bg-white hover:bg-coquette-100 rounded-xl flex items-center justify-center text-md shadow-sm transition-colors border border-coquette-200">💗</div>
+        </div>
+
+        <div class="text-[10px] font-bold text-coquette-dark/70 text-center uppercase tracking-wider">
+          Tap untuk unboxing alasan kamu berarti 🎁
+        </div>
+      </div>
+
+      <!-- WIDGET 6: VOICE TAPE CASSETTE (PESAN SUARA) -->
+      <div onclick="openModal('voice-modal')" class="glass-widget col-span-2 p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[200px] bg-coquette-50">
+        <div class="flex justify-between items-center">
+          <span class="text-coquette-600 text-[10px] font-extrabold uppercase tracking-widest">Pesan Suara</span>
+          <span class="text-xs">🎙️</span>
+        </div>
+
+        <!-- Retro Cassette Graphic representation -->
+        <div class="w-full bg-white/80 p-3 rounded-2xl border border-coquette-200 flex items-center justify-between gap-3 shadow-inner my-2">
+          <!-- Cassette details -->
+          <div class="flex items-center gap-2">
+            <div id="cassette-wheel-left" class="w-8 h-8 rounded-full border-4 border-coquette-300 border-dashed animate-spin-slow"></div>
+            <div class="h-1 w-12 bg-coquette-200 rounded"></div>
+            <div id="cassette-wheel-right" class="w-8 h-8 rounded-full border-4 border-coquette-300 border-dashed animate-spin-slow"></div>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] font-bold text-coquette-dark leading-none">HEHEHE.mp3</p>
+            <p class="text-[9px] text-coquette-dark/50 mt-1">Dengarkan</p>
+          </div>
+        </div>
+
+        <div class="text-xs text-coquette-600 text-center font-bold">
+          Ada hal yang gabisa ditulis dengan kata... 🎙️
+        </div>
+      </div>
+
+      <!-- WIDGET 7: CLOSING BANNER -->
+      <div onclick="openModal('closing-modal')" class="glass-widget col-span-2 p-5 rounded-[32px] flex flex-col justify-between cursor-pointer relative overflow-hidden min-h-[200px] bg-gradient-to-br from-coquette-400 to-coquette-500 text-white border-none shadow-xl">
+        <div class="absolute -right-6 -bottom-6 text-9xl opacity-20 select-none">💖</div>
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-extrabold uppercase tracking-widest opacity-80">Terima Kasih, sayangg!</span>
+          <span class="text-xs">✨</span>
+        </div>
+        <div class="my-3 space-y-1">
+          <h4 class="font-cursive text-3xl font-semibold leading-none">Sweet Closing...</h4>
+          <p class="text-[11px] opacity-90 leading-relaxed font-semibold">
+            Semoga halaman kecil penuh kasih sayang ini bisa membuatmu tersenyum sebahagia dirimu sering membuatku bahagia.
+          </p>
+        </div>
+        <span class="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full self-start">Klik untuk Penutup hangat 🌸</span>
+      </div>
+
+    </div>
+
+    <!-- App-style Navigation Dock -->
+    <div class="w-full flex justify-around items-center py-4 bg-white/60 rounded-3xl border border-white/20 backdrop-blur-sm shadow-lg px-2">
+      <button onclick="openModal('envelope-modal')" class="flex flex-col items-center gap-1.5 text-coquette-dark/70 hover:text-coquette-500 transition-colors">
+        <div class="p-2 bg-coquette-100 hover:bg-coquette-200 rounded-2xl transition-all">
+          <i data-lucide="mail" class="w-5 h-5 text-coquette-500"></i>
+        </div>
+        <span class="text-[10px] font-bold tracking-wide">Letter</span>
+      </button>
+      <button onclick="openModal('chat-modal')" class="flex flex-col items-center gap-1.5 text-coquette-dark/70 hover:text-coquette-500 transition-colors">
+        <div class="p-2 bg-coquette-100 hover:bg-coquette-200 rounded-2xl transition-all">
+          <i data-lucide="message-circle" class="w-5 h-5 text-coquette-500"></i>
+        </div>
+        <span class="text-[10px] font-bold tracking-wide">Kisah</span>
+      </button>
+      <button onclick="openModal('gallery-modal')" class="flex flex-col items-center gap-1.5 text-coquette-dark/70 hover:text-coquette-500 transition-colors">
+        <div class="p-2 bg-coquette-100 hover:bg-coquette-200 rounded-2xl transition-all">
+          <i data-lucide="image" class="w-5 h-5 text-coquette-500"></i>
+        </div>
+        <span class="text-[10px] font-bold tracking-wide">Album</span>
+      </button>
+      <button onclick="openModal('cake-modal')" class="flex flex-col items-center gap-1.5 text-coquette-dark/70 hover:text-coquette-500 transition-colors">
+        <div class="p-2 bg-coquette-100 hover:bg-coquette-200 rounded-2xl transition-all">
+          <i data-lucide="cake" class="w-5 h-5 text-coquette-500"></i>
+        </div>
+        <span class="text-[10px] font-bold tracking-wide">Cake</span>
+      </button>
+      <button onclick="openModal('reasons-modal')" class="flex flex-col items-center gap-1.5 text-coquette-dark/70 hover:text-coquette-500 transition-colors">
+        <div class="p-2 bg-coquette-100 hover:bg-coquette-200 rounded-2xl transition-all">
+          <i data-lucide="gift" class="w-5 h-5 text-coquette-500"></i>
+        </div>
+        <span class="text-[10px] font-bold tracking-wide">Reasons</span>
+      </button>
+    </div>
+
+  </main>
+
+
+  <!-- ==========================================
+       3. INTERACTIVE MODAL BOXES
+       ========================================== -->
+
+  <!-- MODAL A: ENVELOPE (SURAT CINTA UTAMA) -->
+  <div id="envelope-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-lg glass-panel rounded-[36px] p-6 max-h-[85vh] flex flex-col justify-between border border-coquette-200 relative overflow-hidden animate-float">
+      <button onclick="closeModal('envelope-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex-grow overflow-y-auto custom-scroll pr-2 mt-4 space-y-4">
+        <div class="text-center space-y-1">
+          <h3 class="font-cursive text-5xl text-coquette-600">Pesan Untukmu💌</h3>
+          <p class="text-xs text-coquette-dark/50 uppercase tracking-widest font-bold">Unread Letter dari Neng uput</p>
+        </div>
+
+        <div class="bg-[#fffdf9] p-6 rounded-2xl border-2 border-coquette-100 relative shadow-sm text-sm leading-8 text-coquette-dark font-jakarta text-justify">
+          <!-- Notebook margin line -->
+          <div class="absolute left-6 top-0 bottom-0 w-[1.5px] bg-red-200"></div>
+          <div class="pl-6 space-y-4">
+            <p>Untuk Acaa,</p>
+
+<p>Selamat bertambah usia yaaa🤍</p>
+
+<p>Semoga Allah senantiasa melindungimu, memudahkan jalanmu, dan membalas semua kebaikan yang selama ini kamu berikan kepada orang-orang di sekitarmu — termasuk kepadaku, yang mungkin belum bisa membalasnya dengan setimpal.</p>
+
+<p>Aku tidak tahu semua yang sudah kamu lalui untuk sampai di hari ini. Tidak tahu lelah mana yang masih kamu simpan sendiri, tidak tahu doa mana yang masih menunggu jawabannya, tidak tahu malam mana yang pernah terasa terlalu panjang untukmu. Tapi aku percaya — setiap hal itu tidak sia-sia. Ia sedang mengukir dirimu menjadi seseorang yang semakin dalam, semakin bijak, semakin utuh.</p>
+
+<p>Kamu adalah orang yang selalu hadir untuk orang lain. Selalu punya ruang untuk mendengar, untuk peduli, untuk memberi — bahkan di saat kamu sendiri mungkin sedang penuh. Dan aku ingin kamu tahu bahwa itu terlihat, itu terasa, dan itu sangat berarti. Bukan hanya bagiku, tapi bagi semua orang yang pernah merasakan hangatnya kehadiranmu.</p>
+
+<p>Terima kasih, Aca. Terima kasih untuk semua hal kecil yang mungkin kamu lupakan begitu saja setelah melakukannya, tapi tidak pernah aku lupakan. Untuk perhatian yang tidak pernah aku minta tapi selalu kamu berikan. Untuk kata-kata yang selalu datang di waktu yang tepat. Untuk caramu memperlakukanku seperti seseorang yang berharga — di saat aku sendiri belum selalu merasa demikian.</p>
+
+<p>Jujur, terkadang aku merasa belum cukup menjadi teman yang setara untukmu. Belum cukup hadir, belum cukup bisa membalas. Tapi percayalah, tidak ada satu pun kebaikanmu yang berlalu begitu saja tanpa berbekas. Semuanya aku simpan dalam-dalam — sebagai pengingat bahwa masih ada manusia yang memilih untuk tetap lembut, meski hidup tidak selalu memperlakukannya dengan lembut.</p>
+
+<p>Semoga di usia yang baru ini, Allah memudahkan setiap langkahmu. Semoga pekerjaanmu menjadi ladang kebaikan yang terus mengalir untukmu. Semoga orang-orang yang ada di sekelilingmu adalah mereka yang benar-benar tulus, yang mencintaimu bukan karena apa yang bisa kamu berikan, tapi karena siapa dirimu. Semoga doa-doamu yang selama ini kamu panjatkan dalam diam, satu per satu menemukan jawabannya dengan cara yang paling indah.</p>
+
+<p>Dan semoga kamu — yang selama ini begitu sibuk menjaga orang lain — juga ingat untuk menjaga dirimu sendiri. Istirahat ketika lelah. Menangis ketika perlu. Meminta tolong ketika butuh. Kamu tidak harus selalu kuat, Aca. Kamu juga manusia, dan itu tidak pernah membuatmu kurang.</p>
+
+<p>Selamat bertambah usia, sayanggg. Semoga hidup terus memperlakukanmu dengan lembut — selembut hatimu yang selama ini sudah memperlakukan banyak orang dengan penuh kasih.</p>
+
+<p>Kamu sangat berharga. Dan aku bersyukur bisa mengenalmu 🤍</p>
+
+            <p>Dengan penuh syukur dan doa terbaik,</p>
+            <div class="text-right font-cursive text-3xl text-coquette-500 mt-6">With endless love, <br>Uputt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL B: BUKET BUNGA DIGITAL -->
+  <div id="flower-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-md glass-panel rounded-[36px] p-6 text-center border border-coquette-200 relative overflow-hidden animate-float">
+      <button onclick="closeModal('flower-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-4 mt-4">
+        <h3 class="font-cursive text-4xl text-coquette-600">🌷 Buket Bunga Cantik 🌷</h3>
+        
+        <!-- Large Interactive Bouquet SVG -->
+        <div id="large-bouquet-area" class="relative w-full h-60 flex justify-center items-center bg-radial-gradient" onmousemove="generateBouquetSparklesLarge(event)">
+          <div class="absolute inset-0 flex items-center justify-center text-[10px] text-coquette-400 select-none bg-white/20 rounded-2xl pointer-events-none">Usap area bunga untuk memunculkan kilauan ✨</div>
+          <svg viewBox="0 0 100 120" class="w-48 h-48">
+            <path d="M25,50 Q5,30 15,10 Q35,20 25,50" fill="#c3e88d"/>
+            <path d="M75,50 Q95,30 85,10 Q65,20 75,50" fill="#c3e88d"/>
+            <line x1="35" y1="90" x2="50" y2="60" stroke="#558b2f" stroke-width="3"/>
+            <line x1="50" y1="90" x2="50" y2="55" stroke="#558b2f" stroke-width="3"/>
+            <line x1="65" y1="90" x2="50" y2="60" stroke="#558b2f" stroke-width="3"/>
+            
+            <!-- Tulips & Roses -->
+            <g transform="translate(25, 40)"><path d="M10,25 C-5,15 -5,-2 10,0 C25,-2 25,15 10,25 Z" fill="#ff85a1"/></g>
+            <g transform="translate(50, 30)">
+              <circle cx="0" cy="0" r="16" fill="#ffb3c6"/>
+              <circle cx="0" cy="0" r="4" fill="#fff"/>
+            </g>
+            <g transform="translate(75, 43)"><path d="M-10,25 C-25,15 -25,-2 -10,0 C5,-2 5,15 -10,25 Z" fill="#ffccd5"/></g>
+
+            <path d="M15,55 L50,95 L85,55 Z" fill="#fff0f3" opacity="0.9" stroke="#ffccd5" stroke-width="1.5"/>
+            <circle cx="50" cy="92" r="6" fill="#c9184a"/>
+          </svg>
+        </div>
+
+        <p class="text-xs text-coquette-dark/80 leading-relaxed italic px-4">
+          "Ta Kasih buket bunga mawar digital dulu aja sekarang ya ca hehe🌷"
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL C: KUE ULANG TAHUN INTERAKTIF -->
+  <div id="cake-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-md glass-panel rounded-[36px] p-6 text-center border border-coquette-200 relative overflow-hidden animate-float">
+      <button onclick="closeModal('cake-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-6 mt-4 flex flex-col items-center">
+        <h3 class="font-cursive text-4xl text-coquette-600">Make A Wish! 🎂</h3>
+        
+        <!-- Animated Interactive Cake -->
+        <div class="relative flex flex-col items-center justify-end w-60 h-64">
+          
+          <!-- Candle flame -->
+          <div class="relative w-8 h-16 flex justify-center z-20">
+            <div id="modal-cake-flame" class="w-4 h-8 bg-gradient-to-b from-amber-300 via-orange-500 to-red-600 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.8)] animate-bounce origin-bottom transition-all duration-700"></div>
+            <div id="modal-cake-smoke" class="absolute w-1 h-0 bg-gray-400 opacity-0 top-0 left-1/2 -translate-x-1/2 transition-all"></div>
+            <div class="absolute bottom-0 w-[2px] h-3 bg-black"></div>
+          </div>
+
+          <!-- Candle -->
+          <div class="w-3 h-10 bg-gradient-to-r from-coquette-300 via-white to-coquette-300 rounded-t border-b-2 border-coquette-400 z-10"></div>
+
+          <!-- Tiers -->
+          <div class="w-28 h-10 bg-[#ffe5ec] rounded-t-lg relative border-b-2 border-white/40 z-3 shadow-sm flex items-center justify-center">
+            <div class="absolute top-0 left-0 right-0 h-3 bg-white rounded-t-lg opacity-90" style="clip-path: polygon(0 0, 100% 0, 100% 40%, 90% 70%, 80% 30%, 70% 80%, 0 40%);"></div>
+            <span class="text-sm z-10">🍓</span>
+          </div>
+          <div class="w-36 h-12 bg-[#ffccd5] rounded-t-lg relative border-b-2 border-white/40 z-2 shadow-sm flex items-center justify-center gap-1">
+            <div class="absolute top-0 left-0 right-0 h-4 bg-white rounded-t-lg opacity-90" style="clip-path: polygon(0 0, 100% 0, 100% 45%, 88% 75%, 78% 35%, 0 45%);"></div>
+            <span class="text-xs z-10">🌸</span><span class="text-xs z-10">🌸</span>
+          </div>
+          <div class="w-44 h-14 bg-[#ffb3c6] rounded-t-lg relative z-1 shadow-md flex items-center justify-center gap-2">
+            <div class="absolute top-0 left-0 right-0 h-5 bg-white rounded-t-lg opacity-90" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 92% 80%, 82% 40%, 0 50%);"></div>
+            <span class="text-xs z-10">✨</span><span class="text-xs z-10">✨</span>
+          </div>
+
+          <!-- Plate -->
+          <div class="w-52 h-3 bg-coquette-100 rounded-full shadow-lg border border-coquette-200"></div>
+        </div>
+
+        <!-- Blow Interactive Controls -->
+        <div id="blow-action-area" class="w-full text-center space-y-2">
+          <button id="btn-blow" onclick="blowCandleInteractive()" class="px-6 py-3 bg-gradient-to-r from-coquette-400 to-coquette-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 mx-auto">
+            <i data-lucide="wind" class="animate-pulse"></i> Tiup Lilin Kue 🕯️
+          </button>
+          <p class="text-[10px] text-coquette-dark/60 font-semibold">Ketuk tombol untuk meniup lilin harapanmu</p>
+        </div>
+
+        <!-- Success wish card container -->
+        <div id="modal-success-card" class="hidden text-center space-y-3 p-4 bg-white/60 rounded-3xl border border-coquette-100 animate-float">
+          <h4 class="font-cursive text-3xl text-coquette-600">Keinginanmu Dikirim Ke Semesta!</h4>
+          <p class="text-xs text-coquette-dark leading-relaxed font-semibold">
+            "Semoga seluruh harapan, doa baik, dan impian muliamu segera diijabah oleh semesta ya ca💗"
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL D: POLAROID SCRAPBOOK (GALLERY) -->
+  <div id="gallery-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-sm glass-panel rounded-[36px] p-6 text-center border border-coquette-200 relative overflow-hidden animate-float">
+      <button onclick="closeModal('gallery-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-4 mt-4">
+        <div class="text-center">
+          <h3 class="font-cursive text-4xl text-coquette-600">Scrapbook 📸</h3>
+          <p class="text-[10px] text-coquette-dark/50 uppercase tracking-widest font-extrabold">Tap foto untuk geser album</p>
+        </div>
+
+        <!-- Polaroid Slide Game -->
+        <div class="relative w-full h-80 flex items-center justify-center" onclick="nextPolaroid()">
+          
+          <!-- Photo 1 -->
+          <div id="polaroid-1" class="polaroid-card absolute bg-white p-3 pb-8 shadow-2xl border border-coquette-100 transform -rotate-3 w-56 hover:rotate-0 transition-transform cursor-pointer z-30">
+            <div class="w-full h-44 bg-coquette-50 overflow-hidden rounded relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-coquette-300/40 backdrop-blur-sm transform rotate-1 select-none"></div>
+              <img src="foto 11.jpg" class="w-full h-full object-cover" alt="Besties" onerror="this.src='https://placehold.co/400x300/fff0f3/ff4d6d?text=Best+Momen+Kita+🧁'">
+            </div>
+            <p class="font-cursive text-xl text-center text-coquette-dark mt-3">Tahun kapan ini ceuu</p>
+          </div>
+
+          <!-- Photo 2 -->
+          <div id="polaroid-2" class="polaroid-card absolute bg-white p-3 pb-8 shadow-xl border border-coquette-100 transform rotate-6 w-56 opacity-80 scale-95 cursor-pointer z-20">
+            <div class="w-full h-44 bg-coquette-50 overflow-hidden rounded relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-coquette-300/40 backdrop-blur-sm transform -rotate-2 select-none"></div>
+              <img src="foto 4.jpg" class="w-full h-full object-cover" alt="Coffee Date" onerror="this.src='https://placehold.co/400x300/fff0f3/ff4d6d?text=Nongkrong+Cantik+☕'">
+            </div>
+            <p class="font-cursive text-xl text-center text-coquette-dark mt-3">Gemass</p>
+          </div>
+
+          <!-- Photo 3 -->
+          <div id="polaroid-3" class="polaroid-card absolute bg-white p-3 pb-8 shadow-lg border border-coquette-100 transform -rotate-6 w-56 opacity-60 scale-90 cursor-pointer z-10">
+            <div class="w-full h-44 bg-coquette-50 overflow-hidden rounded relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-coquette-300/40 backdrop-blur-sm transform rotate-3 select-none"></div>
+              <img src="h.jpg" class="w-full h-full object-cover" alt="Sunset" onerror="this.src='https://placehold.co/400x300/fff0f3/ff4d6d?text=Momen+Sunset+🌅'">
+            </div>
+            <p class="font-cursive text-xl text-center text-coquette-dark mt-3">Gemass</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL E: UNBOX REASONS WHY (SURPRISE CARDS) -->
+  <div id="reasons-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-lg glass-panel rounded-[36px] p-6 text-center border border-coquette-200 relative overflow-hidden animate-float max-h-[85vh] flex flex-col justify-between">
+      <button onclick="closeModal('reasons-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+
+      <div class="flex-grow overflow-y-auto custom-scroll pr-2 mt-4 space-y-4">
+        <div class="text-center space-y-1">
+      
+          <div onclick="revealReason(this, 'Kamu hangat 🧡', 'bukan lebay, tapi kehadiranmu itu literally bikin suasana beda. orang-orang di sekitar kamu pasti ngerasain itu juga.')" class="bg-white hover:bg-[#fff0f3] border border-coquette-200 p-4 rounded-3xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm">
+            <span class="text-3xl animate-bounce">🎁</span>
+            <span class="text-xs font-bold text-coquette-dark">Box 1</span>
+          </div>
+      
+          <div onclick="revealReason(this, 'Kamu tulus 🤍', 'kamu adalah salah satu orang paling langka yang aku kenal — yang memberi tanpa nunggu kembali. dan itu bukan hal kecil.')" class="bg-white hover:bg-[#fff0f3] border border-coquette-200 p-4 rounded-3xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm">
+            <span class="text-3xl animate-bounce">🎁</span>
+            <span class="text-xs font-bold text-coquette-dark">Box 2</span>
+          </div>
+      
+          <div onclick="revealReason(this, 'Kamu selalu hadir ✨', 'entah gimana caranya, kamu selalu muncul di waktu yang tepat. kayak tau aja kapan harus ada. itu bukan kebetulan — itu kamu.')" class="bg-white hover:bg-[#fff0f3] border border-coquette-200 p-4 rounded-3xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm">
+            <span class="text-3xl animate-bounce">🎁</span>
+            <span class="text-xs font-bold text-coquette-dark">Box 3</span>
+          </div>
+      
+          <div onclick="revealReason(this, 'Kamu nggak sadar 🥺', 'hal-hal kecil yang kamu lakuin — yang mungkin udah kamu lupa — masih aku inget. masih berasa. masih berarti.')" class="bg-white hover:bg-[#fff0f3] border border-coquette-200 p-4 rounded-3xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm">
+            <span class="text-3xl animate-bounce">🎁</span>
+            <span class="text-xs font-bold text-coquette-dark">Box 4</span>
+          </div>
+      
+          <div onclick="revealReason(this, 'Kamu ngajarin aku 🌱', 'dari kamu aku belajar bahwa jadi baik itu bukan kelemahan. justru itu yang paling kuat. terima kasih udah jadi contoh diam-diam buat aku.')" class="bg-white hover:bg-[#fff0f3] border border-coquette-200 p-4 rounded-3xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm">
+            <span class="text-3xl animate-bounce">🎁</span>
+            <span class="text-xs font-bold text-coquette-dark">Box 5</span>
+          </div>
+      
+          <div onclick="revealReason(this, 'Kamu layak 🎀', 'semua kebaikan yang kamu kasih ke orang lain — semoga balik ke kamu berlipat-lipat. karena kamu beneran layak dapet yang terbaik.')" class="bg-white hover:bg-[#fff0f3] border border-coquette-200 p-4 rounded-3xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm">
+            <span class="text-3xl animate-bounce">🎁</span>
+            <span class="text-xs font-bold text-coquette-dark">Box 6</span>
+          </div>
+      
+        </div>
+      </div>
+      </div>
+    </div>
+    
+  <!-- MODAL F: VOICE MESSAGE MESSAGE BOX -->
+  <div id="voice-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-md glass-panel rounded-[36px] p-6 text-center border border-coquette-200 relative overflow-hidden animate-float">
+      <button onclick="closeModal('voice-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-4 mt-4">
+        <h3 class="font-cursive text-4xl text-coquette-600">Pesan Suara Untukmu 🎙️</h3>
+        <p class="text-xs text-coquette-dark/70 font-semibold px-4">
+          Sebenernya bukan hal yang ga bisa ditulis kata kata, ikut yapping dikit aja sekalian testing fitur hehehe...
+        </p>
+
+        <!-- Custom Waveform Voice Player UI -->
+        <div class="bg-white rounded-3xl p-4 border border-coquette-100 shadow-md space-y-4">
+          <div class="flex items-center justify-center gap-2 h-10">
+            <!-- Animated Sound waves visual -->
+            <div class="wave-bar w-1 bg-coquette-400 rounded" style="height: 10px;"></div>
+            <div class="wave-bar w-1 bg-coquette-500 rounded" style="height: 15px;"></div>
+            <div class="wave-bar w-1 bg-coquette-400 rounded" style="height: 25px;"></div>
+            <div class="wave-bar w-1 bg-coquette-300 rounded" style="height: 12px;"></div>
+            <div class="wave-bar w-1 bg-coquette-500 rounded" style="height: 35px;"></div>
+            <div class="wave-bar w-1 bg-coquette-600 rounded" style="height: 20px;"></div>
+            <div class="wave-bar w-1 bg-coquette-400 rounded" style="height: 28px;"></div>
+            <div class="wave-bar w-1 bg-coquette-300 rounded" style="height: 10px;"></div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="btn-modal-voice-play" onclick="toggleVoiceMessage()" class="w-12 h-12 bg-coquette-500 hover:bg-coquette-600 rounded-full flex items-center justify-center text-white shadow-md active:scale-90 transition-all">
+              <i id="modal-voice-play-icon" data-lucide="play" class="w-5 h-5 fill-white"></i>
+            </button>
+            
+            <div class="flex-grow h-1.5 bg-coquette-100 rounded-full relative cursor-pointer overflow-hidden" onclick="seekVoice(event)">
+              <div id="modal-voice-progress" class="absolute top-0 left-0 bottom-0 w-0 bg-gradient-to-r from-coquette-400 to-coquette-500 rounded-full"></div>
+            </div>
+
+            <span id="modal-voice-timer" class="text-xs font-extrabold text-coquette-dark/80 min-w-[35px]"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL G: CLOSING CARD BANNER -->
+  <div id="closing-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-md glass-panel rounded-[36px] p-6 text-center border border-coquette-300 relative overflow-hidden animate-float">
+      <button onclick="closeModal('closing-modal')" class="absolute top-4 right-4 p-2 bg-coquette-100 text-coquette-600 rounded-full hover:bg-coquette-200 transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-4 mt-4">
+        <div class="text-4xl select-none">🎀✨🎀</div>
+        <h3 class="font-cursive text-4xl text-coquette-600">Kado Kecil Sepenuh Hati</h3>
+        <p class="text-xs text-coquette-dark/80 leading-relaxed font-semibold">
+            <p class="text-sm text-coquette-dark/80 leading-relaxed">
+                Aku mungkin belum bisa memberimu banyak hal tapi setidaknya aku bisa memberimu ini. Halaman kecil yang dibuat dengan sepenuh hati, khusus untuk merayakan hari lahirmu.
+              </p>
+              <p class="text-sm font-extrabold text-coquette-dark leading-relaxed">
+                Semoga saat membacanya, kamu tahu, kamu diingat, kamu dihargai, dan kamu sadar kamu sangat berarti bagi semua orang. Selamat bertambah usia, Aca 🤍
+              </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW MODAL H: KISAH KASIH CHAT ROOM SIMULATOR -->
+  <div id="chat-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 hidden transition-all">
+    <div class="w-full max-w-md glass-panel rounded-[36px] flex flex-col justify-between border border-coquette-200 relative overflow-hidden h-[85vh]">
+      
+      <!-- Chat Room Header (WA Style but aesthetic) -->
+      <div class="bg-gradient-to-r from-coquette-100 to-coquette-200 px-4 py-3 flex items-center justify-between border-b border-coquette-300">
+        <div class="flex items-center gap-2.5">
+          <button onclick="closeModal('chat-modal')" class="p-1 bg-white/60 hover:bg-white text-coquette-600 rounded-full transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </button>
+          <div class="w-10 h-10 bg-coquette-400 rounded-full flex items-center justify-center text-xl shadow-inner border border-white">
+            👩🏼
+          </div>
+          <div class="text-left">
+            <h4 class="text-xs font-bold text-coquette-dark leading-tight flex items-center gap-1">Acaa <span class="text-[10px]">🌸</span></h4>
+            <p class="text-[9px] text-coquette-600 font-extrabold flex items-center gap-1 animate-pulse">
+              <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> sedang online
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-coquette-dark/60">
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          <i data-lucide="video" class="w-4 h-4"></i>
+        </div>
+      </div>
+
+      <!-- Chat Conversation Area (Scrollable Only) -->
+      <div class="flex-grow overflow-y-auto custom-scroll p-4 space-y-4 bg-gradient-to-b from-[#fffafb] to-[#fff0f3]" id="chat-conversation-box">
+        
+        <!-- Day Timestamp -->
+        <div class="text-center my-2">
+          <span class="bg-coquette-100 text-coquette-600 text-[9px] font-bold px-2 py-1 rounded-lg">2017</span>
+        </div>
+
+        <!-- Left Message (Bestie) -->
+        <div class="flex items-start gap-2 max-w-[85%]">
+          <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+          <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+            put masak masakan yu
+          </div>
+        </div>
+
+        <!-- Right Message (Me) -->
+        <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+          <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+            hayu, masak apa?
+          </div>
+        </div>
+
+        <!-- Left Message (Bestie) -->
+        <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+            <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+              masak nasi goreng
+            </div>
+          </div>
+
+          <!-- Right Message (Me) -->
+        <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              *nasi goreng terrr enak pada masa itu + jadi bisa buat nasi goreng sendiri😭
+            </div>
+          </div>
+
+
+           <!-- Day Timestamp -->
+        <div class="text-center my-2">
+            <span class="bg-coquette-100 text-coquette-600 text-[9px] font-bold px-2 py-1 rounded-lg">2021</span>
+          </div>
+  
+          <!-- Left Message (Bestie) -->
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+            <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+              ngaji yu
+            </div>
+          </div>
+  
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              hayu
+            </div>
+          </div>
+
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              *seru bgt masa masa ini, jujur kangennnnn
+            </div>
+          </div>
+  
+           <!-- Day Timestamp -->
+        <div class="text-center my-2">
+            <span class="bg-coquette-100 text-coquette-600 text-[9px] font-bold px-2 py-1 rounded-lg">2024</span>
+          </div>
+  
+          <!-- Left Message (Bestie) -->
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+            <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+              beli seblak yu
+            </div>
+          </div>
+  
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              hayu
+            </div>
+          </div>
+
+           <!-- Right Message (Me) -->
+           <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              *tahun yang lumayann 
+            </div>
+          </div>
+
+           <!-- Day Timestamp -->
+        <div class="text-center my-2">
+            <span class="bg-coquette-100 text-coquette-600 text-[9px] font-bold px-2 py-1 rounded-lg">2026</span>
+          </div>
+  
+          <!-- Left Message (Bestie) -->
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+            <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+              put, nanti ke rumah aku ya
+            </div>
+          </div>
+  
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              kamu pulang kah?
+            </div>
+          </div>
+
+          <!-- Left Message (Bestie) -->
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+            <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+              iyaa
+            </div>
+          </div>
+  
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              wokee
+            </div>
+          </div>
+          
+          <!-- Left Message (Bestie) -->
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-7 h-7 bg-coquette-200 rounded-full flex items-center justify-center text-xs self-end">👩🏼</div>
+            <div class="bg-white text-coquette-dark px-3 py-2 rounded-2xl rounded-bl-none shadow-sm text-xs border border-coquette-100 leading-relaxed">
+              iya, nanti kerumah aku ya aku mau tunangan
+            </div>
+          </div>
+  
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              HAH? SUMPAHHHHHHHHH
+            </div>
+          </div>
+
+          <!-- Right Message (Me) -->
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              SEMOGA LANCAR YA NANTI AKU KESITUUUU
+            </div>
+          </div>
+
+           <!-- Right Message (Me) -->
+           <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div class="bg-coquette-400 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed text-left">
+              *JUJUR BAGINDA KAGET YAA, PAGI PAGI DI CHAT KAYA GITU, TAPI SENENGGGGG AKHIRNYAA KAMU MENDAPATKAN LELAKI YANG BETUL BETUL WKWKWK
+            </div>
+          </div>
+  
+
+  <!-- ==========================================
+       4. CLIENT SIDE INTERACTIVE LOGIC
+       ========================================== -->
+  <script>
+    lucide.createIcons();
+
+    // State Variables
+    let isGlobalMusicPlaying = false;
+    let wasGlobalMusicPlayingBeforeOtherAudio = false; // To handle pause and auto-resume logic
+    let isLilinMenyala = true;
+    let currentPolaroidIdx = 1;
+
+    // Elements
+    const lockScreen = document.getElementById('lock-screen');
+    const mainDashboard = document.getElementById('main-dashboard');
+    const globalMusic = document.getElementById('global-music');
+    const voiceMemoAudio = document.getElementById('voice-memo-audio');
+    const chatVoiceAudio = document.getElementById('chat-voice-audio');
+
+    // ==========================================
+    // SMART AUDIO RESUME SYSTEM (PAUSE & RESUME)
+    // ==========================================
+    function stopGlobalMusicTemporarily() {
+      if (isGlobalMusicPlaying) {
+        globalMusic.pause();
+        wasGlobalMusicPlayingBeforeOtherAudio = true;
+        updateDashboardMusicUI(false);
+      } else {
+        wasGlobalMusicPlayingBeforeOtherAudio = false;
+      }
+    }
+
+    function resumeGlobalMusicIfNeeded() {
+      if (wasGlobalMusicPlayingBeforeOtherAudio) {
+        globalMusic.play().then(() => {
+          isGlobalMusicPlaying = true;
+          updateDashboardMusicUI(true);
+        }).catch(err => console.log("Resume blocked", err));
+        wasGlobalMusicPlayingBeforeOtherAudio = false;
+      }
+    }
+
+    // Unlock Cover Animation & Auto-start Background Music
+    function unlockDashboard() {
+      // Automatically starts background music upon unlocking
+      globalMusic.play().then(() => {
+        isGlobalMusicPlaying = true;
+        updateDashboardMusicUI(true);
+      }).catch(err => {
+        console.log("Autoplay was blocked initially. Music waiting for interaction.", err);
+      });
+
+      // Hide Cover Page smoothly
+      lockScreen.style.opacity = '0';
+      lockScreen.style.transform = 'translateY(-100%)';
+      
+      setTimeout(() => {
+        lockScreen.style.display = 'none';
+        mainDashboard.classList.remove('hidden');
+        setTimeout(() => {
+          mainDashboard.classList.remove('opacity-0');
+          mainDashboard.classList.add('opacity-100');
+          
+          // Triggers welcome confettis
+          triggerWelcomeCelebration();
+          // Starts falling flowers environment
+          startFallingAestheticFlora();
+        }, 50);
+      }, 1000);
+    }
+
+    // global music toggle on Dashboard header
+    function toggleMusicGlobal() {
+      if (isGlobalMusicPlaying) {
+        globalMusic.pause();
+        isGlobalMusicPlaying = false;
+        wasGlobalMusicPlayingBeforeOtherAudio = false; // Reset temporary pause state
+        updateDashboardMusicUI(false);
+      } else {
+        globalMusic.play();
+        isGlobalMusicPlaying = true;
+        updateDashboardMusicUI(true);
+      }
+    }
+
+    function updateDashboardMusicUI(playing) {
+      const icon = document.getElementById('dashboard-music-icon');
+      const art = document.getElementById('cassette-spin-art');
+      if (playing) {
+        icon.setAttribute('data-lucide', 'pause');
+        art.classList.add('animate-spin-slow');
+      } else {
+        icon.setAttribute('data-lucide', 'play');
+        art.classList.remove('animate-spin-slow');
+      }
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // MODAL INTERACTIVE SYSTEM
+    // ==========================================
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.remove('hidden');
+      modal.style.opacity = '0';
+      modal.style.transform = 'scale(0.95)';
+      
+      // Let layout trigger
+      setTimeout(() => {
+        modal.style.opacity = '1';
+        modal.style.transform = 'scale(1)';
+        modal.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        
+        // Auto-scroll chat modal box to bottom
+        if (id === 'chat-modal') {
+          const chatBox = document.getElementById('chat-conversation-box');
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }
+      }, 50);
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      modal.style.opacity = '0';
+      modal.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 400);
+
+      // Stop voice notes and resume global music if they were playing
+      if (id === 'voice-modal') {
+        if (!voiceMemoAudio.paused) {
+          voiceMemoAudio.pause();
+          resumeGlobalMusicIfNeeded();
+        }
+        document.getElementById('modal-voice-play-icon').setAttribute('data-lucide', 'play');
+        const leftWheel = document.getElementById('cassette-wheel-left');
+        const rightWheel = document.getElementById('cassette-wheel-right');
+        leftWheel.classList.remove('animate-spin-slow');
+        rightWheel.classList.remove('animate-spin-slow');
+        animateVoiceNoteWaveform(false);
+        lucide.createIcons();
+      } else if (id === 'chat-modal') {
+        if (!chatVoiceAudio.paused) {
+          chatVoiceAudio.pause();
+          resumeGlobalMusicIfNeeded();
+        }
+        document.getElementById('chat-voice-icon').setAttribute('data-lucide', 'play');
+        lucide.createIcons();
+      }
+    }
+
+    // Close on overlay tap
+    window.onclick = function(event) {
+      if (event.target.classList.contains('fixed') && event.target.id !== 'lock-screen') {
+        closeModal(event.target.id);
+      }
+    }
+
+    // ==========================================
+    // SPARKLES BOUQUET EFFECT (TOUCH & MOUSE)
+    // ==========================================
+    function generateBouquetSparkles(e) {
+      const container = document.getElementById('bouquet-widget');
+      createSparkle(e, container);
+    }
+
+    function generateBouquetSparklesLarge(e) {
+      const container = document.getElementById('large-bouquet-area');
+      createSparkle(e, container);
+    }
+
+    function createSparkle(e, container) {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      if (Math.random() < 0.15) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-particle';
+        const designs = ['✨', '🌸', '💖', '⭐', '🌷', '🦋'];
+        sparkle.textContent = designs[Math.floor(Math.random() * designs.length)];
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+
+        container.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1200);
+      }
+    }
+
+    // ==========================================
+    // INTERACTIVE CANDLE BLOW SYSTEM
+    // ==========================================
+    function blowCandleInteractive() {
+      if (!isLilinMenyala) return;
+
+      const widgetFlame = document.getElementById('widget-candle-flame');
+      const modalFlame = document.getElementById('modal-cake-flame');
+      const modalSmoke = document.getElementById('modal-cake-smoke');
+      const actionArea = document.getElementById('blow-action-area');
+      const successCard = document.getElementById('modal-success-card');
+
+      // Animating blowing flames out
+      widgetFlame.style.display = 'none';
+      modalFlame.style.transform = 'scale(0)';
+      modalFlame.style.opacity = '0';
+      
+      // Simulating realistic smoke puffs
+      modalSmoke.style.opacity = '0.7';
+      modalSmoke.style.height = '40px';
+      setTimeout(() => {
+        modalSmoke.style.opacity = '0';
+        modalSmoke.style.height = '0px';
+      }, 1500);
+
+      isLilinMenyala = false;
+
+      // Unleasing gigantic beautiful confetti celebration!
+      triggerMegaCelebration();
+
+      setTimeout(() => {
+        actionArea.classList.add('hidden');
+        successCard.classList.remove('hidden');
+      }, 1000);
+    }
+
+    // ==========================================
+    // SCRAPBOOK SLIDE ENGINE (POLAROID)
+    // ==========================================
+    function nextPolaroid() {
+      const card1 = document.getElementById('polaroid-1');
+      const card2 = document.getElementById('polaroid-2');
+      const card3 = document.getElementById('polaroid-3');
+
+      if (currentPolaroidIdx === 1) {
+        card1.style.transform = 'translateX(250px) rotate(20deg) scale(0.9)';
+        card1.style.opacity = '0';
+        card1.style.zIndex = '10';
+        
+        card2.classList.remove('opacity-80', 'scale-95');
+        card2.classList.add('opacity-100', 'scale-100');
+        card2.style.transform = 'rotate(-3deg)';
+        card2.style.zIndex = '30';
+
+        card3.classList.remove('opacity-60', 'scale-90');
+        card3.classList.add('opacity-80', 'scale-95');
+        card3.style.transform = 'rotate(6deg)';
+        card3.style.zIndex = '20';
+
+        setTimeout(() => {
+          card1.style.transform = 'rotate(-6deg) scale(0.9)';
+          card1.style.opacity = '0.6';
+          currentPolaroidIdx = 2;
+        }, 500);
+
+      } else if (currentPolaroidIdx === 2) {
+        card2.style.transform = 'translateX(-250px) rotate(-20deg) scale(0.9)';
+        card2.style.opacity = '0';
+        card2.style.zIndex = '10';
+
+        card3.classList.remove('opacity-80', 'scale-95');
+        card3.classList.add('opacity-100', 'scale-100');
+        card3.style.transform = 'rotate(-3deg)';
+        card3.style.zIndex = '30';
+
+        card1.classList.remove('opacity-60', 'scale-90');
+        card1.classList.add('opacity-80', 'scale-95');
+        card1.style.transform = 'rotate(6deg)';
+        card1.style.zIndex = '20';
+
+        setTimeout(() => {
+          card2.style.transform = 'rotate(-6deg) scale(0.9)';
+          card2.style.opacity = '0.6';
+          currentPolaroidIdx = 3;
+        }, 500);
+
+      } else {
+        card3.style.transform = 'translateX(250px) rotate(20deg) scale(0.9)';
+        card3.style.opacity = '0';
+        card3.style.zIndex = '10';
+
+        card1.classList.remove('opacity-80', 'scale-95');
+        card1.classList.add('opacity-100', 'scale-100');
+        card1.style.transform = 'rotate(-3deg)';
+        card1.style.zIndex = '30';
+
+        card2.classList.remove('opacity-60', 'scale-90');
+        card2.classList.add('opacity-80', 'scale-95');
+        card2.style.transform = 'rotate(6deg)';
+        card2.style.zIndex = '20';
+
+        setTimeout(() => {
+          card3.style.transform = 'rotate(-6deg) scale(0.9)';
+          card3.style.opacity = '0.6';
+          currentPolaroidIdx = 1;
+        }, 500);
+      }
+    }
+
+    // ==========================================
+    // REVEAL REASONS GIFT GAME
+    // ==========================================
+    function revealReason(element, title, description) {
+      element.innerHTML = `
+        <div class="animate-float text-center space-y-1">
+          <span class="text-xs font-bold text-coquette-600">${title}</span>
+          <p class="text-[9px] text-coquette-dark/70 leading-tight">${description}</p>
+        </div>
+      `;
+      element.classList.remove('hover:bg-[#fff0f3]', 'cursor-pointer');
+      element.classList.add('bg-coquette-50', 'border-coquette-300');
+      element.onclick = null; // Disable clicking again
+      
+      // Small localized confetti explosion!
+      confetti({
+        particleCount: 20,
+        spread: 40,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // ==========================================
+    // VOICE MESSAGE TAPE ENGINE
+    // ==========================================
+    const voiceProgressBar = document.getElementById('modal-voice-progress');
+    const voiceTimer = document.getElementById('modal-voice-timer');
+    const voicePlayIcon = document.getElementById('modal-voice-play-icon');
+
+    function toggleVoiceMessage() {
+      const leftWheel = document.getElementById('cassette-wheel-left');
+      const rightWheel = document.getElementById('cassette-wheel-right');
+
+      if (voiceMemoAudio.paused) {
+        // Pause other active recording if any
+        if (!chatVoiceAudio.paused) {
+          chatVoiceAudio.pause();
+          document.getElementById('chat-voice-icon').setAttribute('data-lucide', 'play');
+        }
+
+        stopGlobalMusicTemporarily();
+        voiceMemoAudio.play();
+        voicePlayIcon.setAttribute('data-lucide', 'pause');
+        leftWheel.classList.add('animate-spin-slow');
+        rightWheel.classList.add('animate-spin-slow');
+        animateVoiceNoteWaveform(true);
+      } else {
+        voiceMemoAudio.pause();
+        voicePlayIcon.setAttribute('data-lucide', 'play');
+        leftWheel.classList.remove('animate-spin-slow');
+        rightWheel.classList.remove('animate-spin-slow');
+        animateVoiceNoteWaveform(false);
+        resumeGlobalMusicIfNeeded();
+      }
+      lucide.createIcons();
+    }
+
+    // Update progress bar
+    voiceMemoAudio.addEventListener('timeupdate', () => {
+      const current = voiceMemoAudio.currentTime;
+      const duration = voiceMemoAudio.duration || 0;
+      const percent = duration > 0 ? (current / duration) * 100 : 0;
+      voiceProgressBar.style.width = `${percent}%`;
+
+      const m = Math.floor(current / 60);
+      const s = Math.floor(current % 60).toString().padStart(2, '0');
+      voiceTimer.textContent = `${m}:${s}`;
+    });
+
+    voiceMemoAudio.addEventListener('ended', () => {
+      voicePlayIcon.setAttribute('data-lucide', 'play');
+      voiceProgressBar.style.width = '0%';
+      animateVoiceNoteWaveform(false);
+      const leftWheel = document.getElementById('cassette-wheel-left');
+      const rightWheel = document.getElementById('cassette-wheel-right');
+      leftWheel.classList.remove('animate-spin-slow');
+      rightWheel.classList.remove('animate-spin-slow');
+      lucide.createIcons();
+
+      // Automatically resume global background music when recording ends
+      resumeGlobalMusicIfNeeded();
+    });
+
+    function seekVoice(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percent = clickX / rect.width;
+      if (voiceMemoAudio.duration) {
+        voiceMemoAudio.currentTime = percent * voiceMemoAudio.duration;
+      }
+    }
+
+    let waveAnimationInterval = null;
+    function animateVoiceNoteWaveform(play) {
+      const bars = document.querySelectorAll('.wave-bar');
+      if (play) {
+        waveAnimationInterval = setInterval(() => {
+          bars.forEach(bar => {
+            const randomHeight = Math.floor(Math.random() * 30) + 8;
+            bar.style.height = `${randomHeight}px`;
+          });
+        }, 150);
+      } else {
+        clearInterval(waveAnimationInterval);
+        bars.forEach((bar, idx) => {
+          const heights = [10, 15, 25, 12, 35, 20, 28, 10];
+          bar.style.height = `${heights[idx]}px`;
+        });
+      }
+    }
+
+    // ==========================================
+    // NEW CHAT VOICE MESSAGE TAPE ENGINE
+    // ==========================================
+    const chatVoiceProgressBar = document.getElementById('chat-voice-progress');
+    const chatVoiceTimer = document.getElementById('chat-voice-timer');
+    const chatVoicePlayIcon = document.getElementById('chat-voice-icon');
+
+    function toggleChatVoice() {
+      if (chatVoiceAudio.paused) {
+        // Pause other active recording if any
+        if (!voiceMemoAudio.paused) {
+          voiceMemoAudio.pause();
+          document.getElementById('modal-voice-play-icon').setAttribute('data-lucide', 'play');
+          const leftWheel = document.getElementById('cassette-wheel-left');
+          const rightWheel = document.getElementById('cassette-wheel-right');
+          leftWheel.classList.remove('animate-spin-slow');
+          rightWheel.classList.remove('animate-spin-slow');
+          animateVoiceNoteWaveform(false);
+        }
+
+        stopGlobalMusicTemporarily();
+        chatVoiceAudio.play();
+        chatVoicePlayIcon.setAttribute('data-lucide', 'pause');
+      } else {
+        chatVoiceAudio.pause();
+        chatVoicePlayIcon.setAttribute('data-lucide', 'play');
+        resumeGlobalMusicIfNeeded();
+      }
+      lucide.createIcons();
+    }
+
+    chatVoiceAudio.addEventListener('timeupdate', () => {
+      const current = chatVoiceAudio.currentTime;
+      const duration = chatVoiceAudio.duration || 0;
+      const percent = duration > 0 ? (current / duration) * 100 : 0;
+      chatVoiceProgressBar.style.width = `${percent}%`;
+
+      const m = Math.floor(current / 60);
+      const s = Math.floor(current % 60).toString().padStart(2, '0');
+      chatVoiceTimer.textContent = `${m}:${s}`;
+    });
+
+    chatVoiceAudio.addEventListener('ended', () => {
+      chatVoicePlayIcon.setAttribute('data-lucide', 'play');
+      chatVoiceProgressBar.style.width = '0%';
+      lucide.createIcons();
+
+      // Automatically resume global background music when chat voice note ends
+      resumeGlobalMusicIfNeeded();
+    });
+
+    function seekChatVoice(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percent = clickX / rect.width;
+      if (chatVoiceAudio.duration) {
+        chatVoiceAudio.currentTime = percent * chatVoiceAudio.duration;
+      }
+    }
+
+
+    // ==========================================
+    // BACKDROP FLORA DRIZZLE ENGINE
+    // ==========================================
+    function startFallingAestheticFlora() {
+      const symbols = ['🌸', '💖', '✨', '🌷', '🦋', '⭐', '🎈', '🎀'];
+
+      setInterval(() => {
+        if (document.hidden) return; // Halt while tab inactive
+        
+        const particle = document.createElement('div');
+        particle.className = 'falling-flora';
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `-50px`;
+
+        const size = Math.random() * (1.5 - 0.7) + 0.7;
+        particle.style.fontSize = `${size}rem`;
+
+        const duration = Math.random() * (12 - 6) + 6;
+        particle.style.animationDuration = `${duration}s`;
+
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), duration * 1000);
+      }, 1800);
+    }
+
+    // ==========================================
+    // PARTY CELEBRATION BLASTERS
+    // ==========================================
+    function triggerWelcomeCelebration() {
+      confetti({
+        particleCount: 100,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#ff85a1', '#ffccd5', '#ffe5ec', '#ffffff']
+      });
+    }
+
+    function triggerMegaCelebration() {
+      const duration = 3.5 * 1000;
+      const end = Date.now() + duration;
+      const colors = ['#ff4d6d', '#ff85a1', '#ffe5ec', '#ffd166', '#ffffff'];
+
+      (function frame() {
+        confetti({
+          particleCount: 4,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 4,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+  </script>
+</body>
+</html>
